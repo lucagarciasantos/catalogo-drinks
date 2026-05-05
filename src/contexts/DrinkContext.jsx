@@ -26,7 +26,7 @@ export function DrinkProvider({ children }) {
 
       const data = JSON.parse(text);
       
-      if (data.drinks) {
+      if (data.drinks && Array.isArray(data.drinks)) {
         setDrinks(data.drinks);
       } else {
         setDrinks([]);
