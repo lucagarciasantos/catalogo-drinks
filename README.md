@@ -98,12 +98,6 @@ O projeto está hospedado na [Vercel](https://vercel.com/) e é atualizado autom
 
 ---
 
-## 👨‍💻 Autor
-
-Feito com 💚 por **[Luca Garcia Santos](https://github.com/lucagarciasantos)**
-
----
-
 ## 📄 Licença
 
 Este projeto está sob a licença MIT. Consulte o arquivo [LICENSE](LICENSE) para mais detalhes.
