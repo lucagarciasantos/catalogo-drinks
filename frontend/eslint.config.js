@@ -17,5 +17,13 @@ export default defineConfig([
       globals: globals.browser,
       parserOptions: { ecmaFeatures: { jsx: true } },
     },
+    rules: {
+      // Exportamos o Context junto do Provider no mesmo arquivo (padrao comum
+      // do React). Esta regra so afeta o Fast Refresh em dev, nao a correcao.
+      'react-refresh/only-export-components': 'off',
+      // Carregar dados / resetar estado de formulario dentro de useEffect e
+      // intencional aqui (busca ao logar, preenchimento do form ao abrir).
+      'react-hooks/set-state-in-effect': 'off',
+    },
   },
 ])
