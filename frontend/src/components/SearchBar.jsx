@@ -21,7 +21,7 @@ export function SearchBar() {
     <Box
       component="form"
       onSubmit={handleSubmit}
-      sx={{ display: 'flex', gap: 1, justifyContent: 'center', mt: 2 }}
+      sx={{ display: 'flex', gap: 1, alignItems: 'center' }}
     >
       <TextField
         inputRef={inputRef}
