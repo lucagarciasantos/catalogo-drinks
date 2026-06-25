@@ -13,7 +13,7 @@ function comprimeAssets() {
     apply: 'build',
     closeBundle() {
       const dir = 'dist/assets'
-      let files = []
+      let files
       try {
         files = readdirSync(dir)
       } catch {

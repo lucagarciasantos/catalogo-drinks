@@ -77,7 +77,7 @@ export function DrinkList() {
         {drinks.map((drink) => {
           const isOwner = user && drink.user_id === user.id;
           return (
-            <Grid item xs={12} sm={6} md={4} key={drink.id}>
+            <Grid size={{ xs: 12, sm: 6, md: 4 }} key={drink.id}>
               <Card
                 sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
               >

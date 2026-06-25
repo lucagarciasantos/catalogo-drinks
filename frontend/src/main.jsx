@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
+import CssBaseline from '@mui/material/CssBaseline'
 import { AuthProvider } from './contexts/AuthContext.jsx'
 import { DrinkProvider } from './contexts/DrinkContext.jsx'
 
@@ -8,6 +9,8 @@ import { DrinkProvider } from './contexts/DrinkContext.jsx'
 // pelo DrinkProvider para chamar o resource-service e abrir o WebSocket.
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
+    {/* CssBaseline aplica o reset de CSS do MUI (remove margem do body etc.). */}
+    <CssBaseline />
     <AuthProvider>
       <DrinkProvider>
         <App />
