@@ -12,9 +12,12 @@ const logger = require('../config/logger');
 const router = express.Router();
 
 // Rate limiting nas tentativas de login (RNF de seguranca - forca bruta).
+// skipSuccessfulRequests: apenas logins que FALHAM contam para o limite, entao
+// um login correto nunca contribui para o bloqueio (UX amigavel na demo).
 const loginLimiter = rateLimit({
   windowMs: Number(process.env.LOGIN_RATE_WINDOW_MS) || 15 * 60 * 1000,
-  limit: Number(process.env.LOGIN_RATE_MAX) || 10,
+  limit: Number(process.env.LOGIN_RATE_MAX) || 20,
+  skipSuccessfulRequests: true,
   standardHeaders: true,
   legacyHeaders: false,
   message: { error: 'Muitas tentativas de login. Tente novamente mais tarde.' },
