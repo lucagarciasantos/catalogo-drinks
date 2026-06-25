@@ -36,4 +36,7 @@ userModel.seed();
 tokenModel.purgeExpired();
 setInterval(() => tokenModel.purgeExpired(), 60 * 60 * 1000).unref();
 
+// Em PRODUCAO este servico ficaria atras de HTTPS (TLS terminado por um proxy
+// reverso como Nginx, ou com certificado proprio). Em desenvolvimento local
+// usamos HTTP simples para facilitar a execucao.
 app.listen(PORT, () => logger.info(`auth-service ouvindo na porta ${PORT}`));

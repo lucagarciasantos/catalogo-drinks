@@ -25,6 +25,8 @@ const { broadcast } = setupWebSocket(server);
 // Consome a fila Redis e retransmite cada evento para todos os clientes WebSocket.
 startSubscriber((channel, payload) => broadcast(payload));
 
+// Em PRODUCAO o WebSocket usaria WSS (TLS) atras de HTTPS; em desenvolvimento
+// local usamos ws:// simples.
 server.listen(PORT, () =>
   logger.info(`notification-service ouvindo na porta ${PORT} (HTTP + WebSocket)`)
 );

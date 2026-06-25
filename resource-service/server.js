@@ -33,4 +33,6 @@ app.use((err, req, res, next) => {
 
 seedDrinks();
 
+// Em PRODUCAO este servico ficaria atras de HTTPS (TLS via proxy reverso).
+// Em desenvolvimento local usamos HTTP simples.
 app.listen(PORT, () => logger.info(`resource-service ouvindo na porta ${PORT}`));
