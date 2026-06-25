@@ -1,0 +1,78 @@
+# Render Blueprint — sobe os 3 backends + Redis do Projeto 2 de uma vez.
+# Como usar: no painel do Render -> New + -> Blueprint -> conecte o repo
+# catalogo-drinks. O Render le este arquivo e cria tudo. Se algum campo
+# reclamar, da pra criar os servicos manualmente (ver DEPLOY.md) com os mesmos valores.
+
+# Segredo do JWT compartilhado entre auth-service e resource-service.
+envVarGroups:
+  - name: projeto2-shared
+    envVars:
+      - key: JWT_SECRET
+        generateValue: true # mesmo valor para os dois servicos
+
+services:
+  # Redis gerenciado (fila Pub/Sub + blocklist de tokens). Plano free.
+  - type: redis
+    name: projeto2-redis
+    plan: free
+    ipAllowList: [] # acessivel apenas pelos servicos internos do Render
+
+  # auth-service
+  - type: web
+    name: auth-service
+    runtime: node
+    plan: free
+    rootDir: auth-service
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - fromGroup: projeto2-shared
+      - key: JWT_EXPIRES_IN
+        value: 1h
+      - key: SERVICE_NAME
+        value: auth-service
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: projeto2-redis
+          property: connectionString
+
+  # resource-service
+  - type: web
+    name: resource-service
+    runtime: node
+    plan: free
+    rootDir: resource-service
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - fromGroup: projeto2-shared
+      - key: CACHE_TTL_MS
+        value: "30000"
+      - key: SERVICE_NAME
+        value: resource-service
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: projeto2-redis
+          property: connectionString
+
+  # notification-service (HTTP + WebSocket)
+  - type: web
+    name: notification-service
+    runtime: node
+    plan: free
+    rootDir: notification-service
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: SERVICE_NAME
+        value: notification-service
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: projeto2-redis
+          property: connectionString

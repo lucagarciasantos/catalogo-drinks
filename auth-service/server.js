@@ -10,7 +10,8 @@ const userModel = require('./src/models/userModel');
 const tokenModel = require('./src/models/tokenModel');
 
 const app = express();
-const PORT = process.env.AUTH_PORT || 3001;
+// Em produção (Render/Railway) a porta vem em process.env.PORT.
+const PORT = process.env.PORT || process.env.AUTH_PORT || 3001;
 
 app.use(compression()); // compressao das respostas HTTP (RNF de performance)
 app.use(cors());

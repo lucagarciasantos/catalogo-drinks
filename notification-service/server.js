@@ -11,7 +11,8 @@ const setupWebSocket = require('./src/routes/websocket');
 const { startSubscriber } = require('./src/models/subscriber');
 
 const app = express();
-const PORT = process.env.NOTIFICATION_PORT || 3003;
+// Em produção (Render/Railway) a porta vem em process.env.PORT.
+const PORT = process.env.PORT || process.env.NOTIFICATION_PORT || 3003;
 
 app.use(compression());
 app.use(cors());

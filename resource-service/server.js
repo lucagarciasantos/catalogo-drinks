@@ -10,7 +10,8 @@ const authenticate = require('./src/config/auth');
 const drinksRoutes = require('./src/routes/drinks');
 
 const app = express();
-const PORT = process.env.RESOURCE_PORT || 3002;
+// Em produção (Render/Railway) a porta vem em process.env.PORT.
+const PORT = process.env.PORT || process.env.RESOURCE_PORT || 3002;
 
 app.use(compression()); // compressao das respostas HTTP
 app.use(cors());
